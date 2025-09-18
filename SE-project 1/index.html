@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BikeHub - Find Your Perfect Ride</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background-color: #f8f9fa;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Header & Navigation */
+        .navbar {
+            background: linear-gradient(90deg, #ff6b6b, #ff8e53);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo a {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .nav-logo span {
+            color: #4ecdc4;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #4ecdc4;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .login-btn {
+            background-color: #4ecdc4;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #3aa99e;
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 2rem;
+        }
+
+        .hero-content {
+            flex: 1;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .hero-title span {
+            color: #ff6b6b;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #666;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            color: white;
+        }
+
+        .btn-secondary {
+            border: 2px solid #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background-color: #ff6b6b;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: slideIn 1s ease-in;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 5rem 2rem;
+            background-color: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            border-radius: 2px;
+        }
+
+        .category-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #4ecdc4, #6a89cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .category-card h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .category-card p {
+            color: #666;
+        }
+
+        /* Featured Bikes */
+        .featured-bikes {
+            padding: 5rem 2rem;
+        }
+
+        .bike-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid #ff6b6b;
+            background: transparent;
+            color: #ff6b6b;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            color: white;
+        }
+
+        .bike-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .bike-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .bike-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .bike-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .bike-details {
+            padding: 1.5rem;
+        }
+
+        .bike-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .bike-price {
+            font-size: 1.2rem;
+            color: #ff6b6b;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .bike-specs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .spec {
+            text-align: center;
+        }
+
+        .spec-value {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .spec-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .bike-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-details {
+            background: linear-gradient(45deg, #4ecdc4, #6a89cc);
+            color: white;
+        }
+
+        .view-details:hover {
+            background: linear-gradient(45deg, #3aa99e, #5a76b8);
+        }
+
+        .compare-btn {
+            border: 1px solid #4ecdc4;
+            color: #4ecdc4;
+        }
+
+        .compare-btn:hover {
+            background-color: #4ecdc4;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(90deg, #2c3e50, #4a6491);
+            color: white;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section h3, .footer-section h4 {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .footer-section h3::after, .footer-section h4::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #4ecdc4;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: #4ecdc4;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: #ff6b6b;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .bike-filters {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Login Page Styles */
+        .login-container {
+            display: flex;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-form-container {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .login-form-container h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .login-form-container > p {
+            color: #666;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+            outline: none;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+        }
+
+        .signup-link a {
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Comparison Page Styles */
+        .comparison-section {
+            padding: 3rem 2rem;
+            min-height: 70vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+        }
+
+        .comparison-controls {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+        }
+
+        .select-bikes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .select-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .select-container label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .select-container select {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+
+        .select-container select:focus {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+            outline: none;
+        }
+
+        .compare-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .compare-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .comparison-result {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .placeholder {
+            padding: 3rem;
+            text-align: center;
+            color: #666;
+        }
+
+        .placeholder i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ddd;
+        }
+
+        .placeholder h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #4ecdc4 0%, #6a89cc 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .spec-name {
+            font-weight: 600;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        .bike-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .bike-image {
+            width: 120px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .bike-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .bike-price {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+
+        .winner {
+            color: #4caf50;
+            font-weight: 600;
+        }
+
+        /* Error message */
+        .error-message {
+            color: #d32f2f;
+            text-align: center;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #ffebee;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html">Bike<span>Hub</span></a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#bikes" class="nav-link">Bikes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#comparison" class="nav-link">Compare</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#login" class="nav-link login-btn">Login</a>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Section -->
+        <section id="home">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">Find Your Perfect <span>Ride</span></h1>
+                    <p class="hero-description">Discover the best bikes with detailed specifications, reviews, and comparisons.</p>
+                    <div class="hero-buttons">
+                        <a href="#bikes" class="btn-primary">Explore Bikes</a>
+                        <a href="#comparison" class="btn-secondary">Compare Now</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Hero Bike" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15e6df743a6%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15e6df743a6%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285%22%20y%3D%22217%22%3EBikeHub%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E'">
+                </div>
+            </section>
+
+            <!-- Bike Categories -->
+            <section class="categories">
+                <h2 class="section-title">Browse By Category</h2>
+                <div class="category-container">
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-motorcycle"></i>
+                        </div>
+                        <h3>Sports Bikes</h3>
+                        <p>High-performance machines for speed enthusiasts</p>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-bicycle"></i>
+                        </div>
+                        <h3>Commuter Bikes</h3>
+                        <p>Fuel-efficient and practical for daily use</p>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-mountain"></i>
+                        </div>
+                        <h3>Adventure Bikes</h3>
+                        <p>Explore off-road trails and long journeys</p>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">
+                            <i class="fas fa-scooter"></i>
+                        </div>
+                        <h3>Scooters</h3>
+                        <p>Easy to ride and perfect for city commuting</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Bikes -->
+            <section class="featured-bikes" id="bikes">
+                <h2 class="section-title">Featured Bikes</h2>
+                <div class="bike-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="sports">Sports</button>
+                    <button class="filter-btn" data-filter="commuter">Commuter</button>
+                    <button class="filter-btn" data-filter="adventure">Adventure</button>
+                    <button class="filter-btn" data-filter="scooter">Scooter</button>
+                </div>
+                <div class="bike-container">
+                    <!-- Bike cards will be populated by JavaScript -->
+                </div>
+            </section>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login" class="login-container" style="display: none;">
+            <div class="login-form-container">
+                <h2>Login to Your Account</h2>
+                <p>Enter your details to access your account</p>
+                
+                <div class="error-message" id="loginError"></div>
+                
+                <form class="login-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    
+                    <button type="submit" class="login-button">Login</button>
+                </form>
+                
+                <div class="signup-link">
+                    Don't have an account? <a href="#">Sign up now</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section id="comparison" class="comparison-section" style="display: none;">
+            <div class="container">
+                <h2 class="section-title">Compare Bikes</h2>
+                <p class="section-subtitle">Select up to 3 bikes to compare their specifications</p>
+                
+                <div class="comparison-controls">
+                    <div class="select-bikes">
+                        <div class="select-container">
+                            <label for="bike1">Bike 1</label>
+                            <select id="bike1">
+                                <option value="">Select a bike</option>
+                            </select>
+                        </div>
+                        <div class="select-container">
+                            <label for="bike2">Bike 2</label>
+                            <select id="bike2">
+                                <option value="">Select a bike</option>
+                            </select>
+                        </div>
+                        <div class="select-container">
+                            <label for="bike3">Bike 3</label>
+                            <select id="bike3">
+                                <option value="">Select a bike</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="compareBtn" class="compare-button">Compare Now</button>
+                </div>
+                
+                <div class="comparison-result" id="comparisonResult">
+                    <div class="placeholder">
+                        <i class="fas fa-exchange-alt"></i>
+                        <h3>Select bikes to compare</h3>
+                        <p>Choose up to 3 bikes from the dropdown menus above to see their detailed comparison.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>BikeHub</h3>
+                <p>Your ultimate destination for bike information, comparisons, and reviews.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#bikes">Bikes</a></li>
+                    <li><a href="#comparison">Compare</a></li>
+                    <li><a href="#login">Login</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p>Email: info@bikehub.com</p>
+                <p>Phone: +1 234 567 8900</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 BikeHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample bike data with reliable image URLs
+        const bikes = [
+            {
+                id: 1,
+                name: "Yamaha R15 V4",
+                price: "₹1,82,000",
+                image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                category: "sports",
+                specs: {
+                    engine: "155cc",
+                    mileage: "40 kmpl",
+                    power: "18.6 PS",
+                    weight: "142 kg",
+                    topSpeed: "136 kmph",
+                    fuelCapacity: "11L",
+                    transmission: "6-speed",
+                    abs: "Dual Channel"
+                }
+            },
+            {
+                id: 2,
+                name: "Honda CB 350",
+                price: "₹2,10,000",
+                image: "https://images.unsplash.com/photo-1609630875171-b1321377ee65?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                category: "commuter",
+                specs: {
+                    engine: "348.36cc",
+                    mileage: "35 kmpl",
+                    power: "20.8 PS",
+                    weight: "181 kg",
+                    topSpeed: "114 kmph",
+                    fuelCapacity: "15L",
+                    transmission: "5-speed",
+                    abs: "Single Channel"
+                }
+            },
+            {
+                id: 3,
+                name: "Royal Enfield Himalayan",
+                price: "₹2,15,000",
+                image: "https://images.unsplash.com/photo-1564396797662-2d5f8a4d6d3c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                category: "adventure",
+                specs: {
+                    engine: "411cc",
+                    mileage: "30 kmpl",
+                    power: "24.3 PS",
+                    weight: "194 kg",
+                    topSpeed: "120 kmph",
+                    fuelCapacity: "15L",
+                    transmission: "5-speed",
+                    abs: "Dual Channel"
+                }
+            },
+            {
+                id: 4,
+                name: "Honda Activa 6G",
+                price: "₹78,000",
+                image: "https://images.unsplash.com/photo-1571068316345-8bb10cedadf4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                category: "scooter",
+                specs: {
+                    engine: "109.51cc",
+                    mileage: "45 kmpl",
+                    power: "7.68 PS",
+                    weight: "107 kg",
+                    topSpeed: "83 kmph",
+                    fuelCapacity: "5.3L",
+                    transmission: "CVT",
+                    abs: "No"
+                }
+            },
+            {
+                id: 5,
+                name: "KTM Duke 200",
+                price: "₹2,15,000",
+                image: "https://images.unsplash.com/photo-1623778027845-49cdd4c2e76d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                category: "sports",
+                specs: {
+                    engine: "199.5cc",
+                    mileage: "35 kmpl",
+                    power: "25 PS",
+                    weight: "139 kg",
+                    topSpeed: "140 kmph",
+                    fuelCapacity: "13.4L",
+                    transmission: "6-speed",
+                    abs: "Dual Channel"
+                }
+            },
+            {
+                id: 6,
+                name: "Bajaj Pulsar 150",
+                price: "₹1,20,000",
+                image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                category: "commuter",
+                specs: {
+                    engine: "149.5cc",
+                    mileage: "45 kmpl",
+                    power: "14 PS",
+                    weight: "144 kg",
+                    topSpeed: "110 kmph",
+                    fuelCapacity: "15L",
+                    transmission: "5-speed",
+                    abs: "Single Channel"
+                }
+            },
+            {
+                id: 7,
+                name: "TVS Apache RTR 160",
+                price: "₹1,25,000",
+                image: "https://images.unsplash.com/photo-1609630875171-b1321377ee65?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                category: "sports",
+                specs: {
+                    engine: "159.7cc",
+                    mileage: "45 kmpl",
+                    power: "15.8 PS",
+                    weight: "137 kg",
+                    topSpeed: "114 kmph",
+                    fuelCapacity: "12L",
+                    transmission: "5-speed",
+                    abs: "Single Channel"
+                }
+            },
+            {
+                id: 8,
+                name: "Hero Splendor Plus",
+                price: "₹75,000",
+                image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                category: "commuter",
+                specs: {
+                    engine: "97.2cc",
+                    mileage: "80 kmpl",
+                    power: "8.02 PS",
+                    weight: "112 kg",
+                    topSpeed: "87 kmph",
+                    fuelCapacity: "9.8L",
+                    transmission: "4-speed",
+                    abs: "No"
+                }
+            }
+        ];
+
+        // DOM Elements
+        const bikeContainer = document.querySelector('.bike-container');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const bikeSelect1 = document.getElementById('bike1');
+        const bikeSelect2 = document.getElementById('bike2');
+        const bikeSelect3 = document.getElementById('bike3');
+        const compareBtn = document.getElementById('compareBtn');
+        const comparisonResult = document.getElementById('comparisonResult');
+        const loginForm = document.getElementById('loginForm');
+        const loginError = document.getElementById('loginError');
+        const homeSection = document.getElementById('home');
+        const loginSection = document.getElementById('login');
+        const comparisonSection = document.getElementById('comparison');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            displayBikes(bikes);
+            setupFilters();
+            setupMobileMenu();
+            populateBikeDropdowns();
+            setupNavigation();
+            
+            // Load comparison from localStorage if available
+            const comparisonList = JSON.parse(localStorage.getItem('comparisonList')) || [];
+            if (comparisonList.length > 0) {
+                comparisonList.forEach((bikeId, index) => {
+                    const selectElement = [bikeSelect1, bikeSelect2, bikeSelect3][index];
+                    if (selectElement) {
+                        selectElement.value = bikeId;
+                    }
+                });
+            }
+        });
+
+        // Setup navigation
+        function setupNavigation() {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = link.getAttribute('href').substring(1);
+                    
+                    // Hide all sections
+                    homeSection.style.display = 'none';
+                    loginSection.style.display = 'none';
+                    comparisonSection.style.display = 'none';
+                    
+                    // Show target section
+                    if (target === 'home') {
+                        homeSection.style.display = 'block';
+                    } else if (target === 'login') {
+                        loginSection.style.display = 'flex';
+                    } else if (target === 'comparison') {
+                        comparisonSection.style.display = 'block';
+                    }
+                    
+                    // Close mobile menu if open
+                    const hamburger = document.querySelector('.hamburger');
+                    const navMenu = document.querySelector('.nav-menu');
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+
+        // Display bikes in the container
+        function displayBikes(bikesToShow) {
+            bikeContainer.innerHTML = '';
+            
+            if (bikesToShow.length === 0) {
+                bikeContainer.innerHTML = '<p class="no-bikes">No bikes found in this category.</p>';
+                return;
+            }
+            
+            bikesToShow.forEach(bike => {
+                const bikeCard = document.createElement('div');
+                bikeCard.classList.add('bike-card');
+                bikeCard.innerHTML = `
+                    <img src="${bike.image}" alt="${bike.name}" class="bike-image" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22300%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20300%20200%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15e6df743a6%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A15pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15e6df743a6%22%3E%3Crect%20width%3D%22300%22%20height%3D%22200%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22110%22%20y%3D%22107%22%3E${encodeURIComponent(bike.name)}%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E'">
+                    <div class="bike-details">
+                        <h3 class="bike-title">${bike.name}</h3>
+                        <span class="bike-price">${bike.price}</span>
+                        <div class="bike-specs">
+                            <div class="spec">
+                                <div class="spec-value">${bike.specs.engine}</div>
+                                <div class="spec-label">Engine</div>
+                            </div>
+                            <div class="spec">
+                                <div class="spec-value">${bike.specs.mileage}</div>
+                                <div class="spec-label">Mileage</div>
+                            </div>
+                            <div class="spec">
+                                <div class="spec-value">${bike.specs.power}</div>
+                                <div class="spec-label">Power</div>
+                            </div>
+                        </div>
+                        <div class="bike-actions">
+                            <button class="action-btn view-details">View Details</button>
+                            <button class="action-btn compare-btn" data-id="${bike.id}">Compare</button>
+                        </div>
+                    </div>
+                `;
+                bikeContainer.appendChild(bikeCard);
+            });
+            
+            // Add event listeners to compare buttons
+            document.querySelectorAll('.compare-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const bikeId = parseInt(e.target.getAttribute('data-id'));
+                    addToComparison(bikeId);
+                });
+            });
+        }
+
+        // Setup filter functionality
+        function setupFilters() {
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    // Filter bikes
+                    const filter = button.getAttribute('data-filter');
+                    let filteredBikes;
+                    
+                    if (filter === 'all') {
+                        filteredBikes = bikes;
+                    } else {
+                        filteredBikes = bikes.filter(bike => bike.category === filter);
+                    }
+                    
+                    // Display filtered bikes
+                    displayBikes(filteredBikes);
+                });
+            });
+        }
+
+        // Setup mobile menu toggle
+        function setupMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+            
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+
+        // Add bike to comparison (stored in localStorage)
+        function addToComparison(bikeId) {
+            let comparisonList = JSON.parse(localStorage.getItem('comparisonList')) || [];
+            
+            if (!comparisonList.includes(bikeId)) {
+                if (comparisonList.length >= 3) {
+                    alert('You can compare up to 3 bikes at a time.');
+                    return;
+                }
+                
+                comparisonList.push(bikeId);
+                localStorage.setItem('comparisonList', JSON.stringify(comparisonList));
+                
+                // Show confirmation message
+                const bike = bikes.find(b => b.id === bikeId);
+                alert(`Added ${bike.name} to comparison!`);
+            } else {
+                alert('This bike is already in your comparison list.');
+            }
+        }
+
+        // Populate dropdowns with bike options
+        function populateBikeDropdowns() {
+            const selects = [bikeSelect1, bikeSelect2, bikeSelect3];
+            
+            selects.forEach(select => {
+                // Clear existing options except the first one
+                while (select.options.length > 1) {
+                    select.remove(1);
+                }
+                
+                // Add bike options
+                bikes.forEach(bike => {
+                    const option = document.createElement('option');
+                    option.value = bike.id;
+                    option.textContent = bike.name;
+                    select.appendChild(option);
+                });
+            });
+        }
+
+        // Compare bikes button handler
+        compareBtn.addEventListener('click', compareBikes);
+
+        function compareBikes() {
+            const selectedBikeIds = [
+                parseInt(bikeSelect1.value),
+                parseInt(bikeSelect2.value),
+                parseInt(bikeSelect3.value)
+            ].filter(id => !isNaN(id));
+            
+            if (selectedBikeIds.length < 2) {
+                alert('Please select at least 2 bikes to compare.');
+                return;
+            }
+            
+            const selectedBikes = selectedBikeIds.map(id => 
+                bikes.find(bike => bike.id === id)
+            );
+            
+            displayComparison(selectedBikes);
+            
+            // Save to localStorage
+            localStorage.setItem('comparisonList', JSON.stringify(selectedBikeIds));
+        }
+
+        // Display comparison results
+        function displayComparison(bikesToCompare) {
+            // Get all unique specification keys
+            const allSpecs = new Set();
+            bikesToCompare.forEach(bike => {
+                Object.keys(bike.specs).forEach(spec => allSpecs.add(spec));
+            });
+            
+            const specArray = Array.from(allSpecs);
+            
+            // Create comparison table
+            let tableHTML = `
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Specification</th>
+            `;
+            
+            // Add bike headers
+            bikesToCompare.forEach(bike => {
+                tableHTML += `
+                    <th>
+                        <div class="bike-header">
+                            <img src="${bike.image}" alt="${bike.name}" class="bike-image" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22120%22%20height%3D%2290%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20120%2090%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15e6df743a6%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15e6df743a6%22%3E%3Crect%20width%3D%22120%22%20height%3D%2290%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2240%22%20y%3D%2252%22%3E${encodeURIComponent(bike.name)}%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E'">
+                            <div class="bike-title">${bike.name}</div>
+                            <div class="bike-price">${bike.price}</div>
+                        </div>
+                    </th>
+                `;
+            });
+            
+            tableHTML += `</tr></thead><tbody>`;
+            
+            // Add specification rows
+            specArray.forEach(spec => {
+                // Format spec name for display
+                const specName = spec.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                
+                tableHTML += `
+                    <tr>
+                        <td class="spec-name">${specName}</td>
+                `;
+                
+                // Get all values for this spec
+                const values = bikesToCompare.map(bike => bike.specs[spec] || 'N/A');
+                
+                // For numeric values, find the winner
+                const numericValues = values.map(val => {
+                    const num = parseFloat(val);
+                    return isNaN(num) ? null : num;
+                });
+                
+                // If all values are numeric, highlight the best one
+                const allNumeric = numericValues.every(val => val !== null);
+                
+                if (allNumeric) {
+                    // Determine if higher or lower is better for this spec
+                    const higherIsBetter = !['weight', 'mileage'].includes(spec);
+                    const bestValue = higherIsBetter ? 
+                        Math.max(...numericValues) : Math.min(...numericValues);
+                    
+                    values.forEach((value, index) => {
+                        const isBest = parseFloat(value) === bestValue;
+                        tableHTML += `
+                            <td class="${isBest ? 'winner' : ''}">${value} ${isBest ? '⭐' : ''}</td>
+                        `;
+                    });
+                } else {
+                    // For non-numeric values, just display them
+                    values.forEach(value => {
+                        tableHTML += `<td>${value}</td>`;
+                    });
+                }
+                
+                tableHTML += `</tr>`;
+            });
+            
+            tableHTML += `</tbody></table>`;
+            
+            comparisonResult.innerHTML = tableHTML;
+        }
+
+        // Login form handling
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple validation
+            if (!email || !password) {
+                showLoginError('Please fill in all fields');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                showLoginError('Please enter a valid email address');
+                return;
+            }
+            
+            // Simulate API login
+            simulateLoginAPI(email, password);
+        });
+
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function showLoginError(message) {
+            loginError.textContent = message;
+            loginError.style.display = 'block';
+            
+            // Hide error after 5 seconds
+            setTimeout(() => {
+                loginError.style.display = 'none';
+            }, 5000);
+        }
+
+        // Simulate API login (replace with real API call)
+        function simulateLoginAPI(email, password) {
+            showLoginError('Logging in...');
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                // This is a mock response
+                if (email === 'demo@example.com' && password === 'password') {
+                    showLoginError('Login successful! Redirecting...');
+                    
+                    // Store user data
+                    localStorage.setItem('user', JSON.stringify({
+                        email: email,
+                        name: 'Demo User',
+                        loggedIn: true
+                    }));
+                    
+                    // Redirect to home page after successful login
+                    setTimeout(() => {
+                        homeSection.style.display = 'block';
+                        loginSection.style.display = 'none';
+                        showLoginError('');
+                    }, 1500);
+                } else {
+                    showLoginError('Invalid email or password. Try demo@example.com / password');
+                }
+            }, 1500);
+        }
+
+        // Image error handling fallback
+        document.addEventListener('error', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.target.src = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15e6df743a6%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15e6df743a6%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285%22%20y%3D%22217%22%3EBikeHub%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E';
+            }
+        }, true);
+    </script>
+</body>
+</html>
